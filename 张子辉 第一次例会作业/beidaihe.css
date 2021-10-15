@@ -1,0 +1,38 @@
+#welcome {
+    display: block;
+    width: 100%;
+    text-align: right;
+    overflow: hidden;
+    -webkit-animation: marquee 20s linear infinite;
+    animation: marquee 20s linear infinite;
+}
+
+@-webkit-keyframes marquee {
+    0% {
+        transform: translateX(15%);
+    }
+    100% {
+        transform: translateX(-100%); 
+    }
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(15%);
+    }
+    100% {
+        transform: translateX(-100%); 
+    }
+}
+
+@-webkit-keyframes marquee {
+    0% {
+        transform: translateX(15%);
+    }
+    100% {
+        transform: translateX(-100%); 
+    }
+}
+body{
+    background-image: linear-gradient(to left,#FFC0CB,	#87CEEB);
+}
