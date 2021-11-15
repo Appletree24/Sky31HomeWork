@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>增删改查只能增</title>
+    <meta charset="utf-8">
+    <style>
+        .error {color: #FF0000;}
+    </style>
+</head>
+<?php
+$nameErr=$emailErr=$genderErr=$websiteErr=$passwordErr="";
+$name=$email=$gender=$comment=$website=$password="";
+if($_SERVER["REQUEST_METHOD"=="post"]){
+    if(empty($_POST["name"])){
+        $nameErr="您必须输入用户名";
+    }
+    else{
+        $name=test_input($_POST["name"]);
+        if(!preg_match("/[a-zA-z ]*$/",$name));{
+            $nameErr="请不要输入除字母与空格外的任何字符";
+        }
+    }
+    if(empty($_POST["email"])){
+        $nameErr="您必须输入邮箱";
+    }
+    else{
+        $email=test_input($_POST['email']);
+    }if(!preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/",$email)){
+        $emailErr="请您输入正确的邮箱格式";
+    }
+    if(empty($_POST["website"])){
+        $website="";
+    }else{
+        $website=test_input($_POST["website"]);
+        if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$website)){
+            $websiteErr="请您输入正确的网址格式";
+        }
+    }
+    if(empty($_POST["comment"])){
+        $comment="";
+    }else{
+        $comment=test_input($_POST["comment"]);
+    }
+    if(empty($_POST["password"])){
+        $passwordErr="您必须输入密码";
+    }else{
+        $password=test_input($_POST["password"]);
+    }
+}
+function test_input($data){
+    $data=trim($data);
+    $data=stripslashes($data);
+    $data=htmlspecialchars($data);
+    return $data;
+}
+?>
+<h2>增删改查只能增</h2>
+<p><span class="error">请注意:*代表必填字段。</span></p>
+<form action="DataBase.php" method="post" >
+    用户名:<input type="text" name="name">
+    <span class="error">* <?php echo $nameErr;?></span>
+<br><br>
+    密码:<input type="password" name="password">
+    <span class="error">* <?php echo $passwordErr;?></span>
+<br><br>
+    邮箱:<input type="text" name="email">
+    <span class="error">* <?php echo $emailErr;?></span>
+<br><br>
+    网址:<input type="text" name="website">
+    <span class="error">* <?php echo $websiteErr;?></span>
+<br><br>
+备注:<textarea name="comment" rows="5" cols="40"></textarea>
+<br><br>
+    <input type="submit" value="提交"></form>
+    </body>
+</html>
